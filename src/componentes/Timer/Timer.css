@@ -1,0 +1,50 @@
+.App{
+    background-color: rgb(202, 202, 202);
+    display: block;
+    
+    
+}
+
+.list-group-item{
+    
+}
+.neon{
+    margin-top: 100px;
+    margin: auto;
+    font-size: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(270deg, #051817, #0e3839);
+    height: 180px;
+    width: 460px;
+    text-shadow: 1px 1px 7px;
+    border-radius: 15px;
+   /*  border: 2px solid silver; */
+    box-shadow: 0 0 5px 25px;
+}
+.hour,.minutes,.seconds,span{
+    border: 0px;
+    background: linear-gradient(270deg, #051817, #0e3839);
+}
+.neonLi{ 
+    margin: auto;  
+    width: 400px;
+    text-align: center;
+    background: linear-gradient(270deg, #051817, #0e3839);
+    text-shadow: 1px 1px 7px;
+    border-radius: 15px;
+    /* border: 2px solid silver; */
+    box-shadow: 0 0 2px 0px;
+}
+button{ 
+    margin: auto;  
+    margin-bottom: 10px;
+    width: 150px;
+    text-align: center;
+    background: linear-gradient(270deg, #051817, #0e3839);
+    text-shadow: 1px 1px 7px;
+    border-radius: 15px;
+    /* border: 2px solid silver; */
+    box-shadow: 0 0 2px 0px;
+}
