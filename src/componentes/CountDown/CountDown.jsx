@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
-import "./Timer.css";
-import listPause from "../ListPause/ListPause";
+import "./CountDown.css";
 
-let defaultTimeRemining = {
-  seconds: "00",
-  minutes: "00",
-  hours: "00",
-};
-const Timer = ({ timerHours, timerMinutes, timerSeconds }) => {
+
+const CountDown = ({ timerHours, timerMinutes, timerSeconds }) => {
   const [start, setStart] = useState(false);
   const [remainigTime, setRemainigTime] = useState({
     seconds: timerSeconds,
@@ -170,4 +165,4 @@ const [listPause, setListPause] = useState([]);
   );
 };
 
-export default Timer;
+export default CountDown;
