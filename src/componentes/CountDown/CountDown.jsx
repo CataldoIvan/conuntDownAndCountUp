@@ -16,14 +16,24 @@ const [listPause, setListPause] = useState([]);
   const [color, setColor] = useState("#06f1f6");
   const [fontSize, setFontSize] = useState("70px");
   const [interv, setInterv] = useState();
+  const [error, setError] = useState([]);
   let dateTemporizator = dayjs()
     .add(parseInt(remainigTime.seconds), "second")
     .add(parseInt(remainigTime.minutes), "minute")
     .add(parseInt(remainigTime.hours), "hour");
 
-  const handleStart = (bool) => {
+  const handleStart = (e) => {
+
+    console.log(e.target.parentNode.hours)
+    console.log(e.target.parentNode.minutes)
+    console.log(e.target.parentNode.seconds)
+    if(e.target.parentNode.hours<0 || e.target.parentNode.hours>24){
+      setError(...error.push("no puede ser mayor a 24 hs"))
+      console.log(error);
+    }
+
     setStatus(1)
-    setStart(bool);
+    setStart(true);
     console.log(`me hizo click`);
   };
   const handlePause = () => {
@@ -100,10 +110,26 @@ const [listPause, setListPause] = useState([]);
       </div>
       <div style={{ textAlign: "center", marginTop: "50px" }}>
       {status === 0 ? (
-          <button  style={{ color: color }} onClick={(e) => {
-            handleStart(true)
-          }}>Empezar</button>
-          )
+        <>
+            <form className="row  col-4 mx-auto align-items-center">
+              
+            <div className="col-4">
+              <label className="visually-hidden" for={remainigTime.hours}>Name</label>
+              <input type="number" min="0"  max="24" className="form-control" id="hours" defaultValue={remainigTime.hours} placeholder="Hora"/>
+            </div>
+            <div className="col-4">
+              <label className="visually-hidden" for={remainigTime.minutes}>Name</label>
+              <input type="number" min="0"  max="60" className="form-control" id="minutes" defaultValue={remainigTime.minutes} placeholder="Minuto"/>
+            </div>
+            <div className="col-4">
+              <label className="visually-hidden" for={remainigTime.seconds}>Name</label>
+              <input type="number"  min="0"  max="60" className="form-control" id="seconds" defaultValue={remainigTime.seconds} placeholder="Segundo"/>
+            </div>
+            <button  style={{ color: color }} onClick={handleStart}>Empezar</button>
+          </form>
+          
+          
+          </>)
           :(
             <> 
              {status === 1 ? (
@@ -149,6 +175,12 @@ const [listPause, setListPause] = useState([]);
         </p>
         </div>
 
+      </div>
+      <div>
+        {error?error.map((err)=>
+          <li>{err}</li>
+        )
+      :null}
       </div>
 
       <div>

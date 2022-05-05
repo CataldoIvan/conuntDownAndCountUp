@@ -13,6 +13,11 @@ const horaCapturada={
 const App=()=> {
 
   const [selector,setSelector]=useState(0)
+
+  const nuevoDato=(e)=>{
+e.preventDefault()
+console.log(e.target.parentElement);
+  }
  
   return (
     
@@ -21,6 +26,7 @@ const App=()=> {
       (<>
       <button onClick={()=>setSelector(2)}>CountDown</button>
       <button onClick={()=>setSelector(1)}>CountUp</button>
+     
       </>)
       :
       (
@@ -34,11 +40,14 @@ const App=()=> {
        <>
        
         <button onClick={()=>setSelector(2)}>CountUp</button>
+        
            <CountDown
          timerHours={horaCapturada.hours}
          timerMinutes={horaCapturada.minutes}
          timerSeconds={horaCapturada.seconds}
          /> 
+
+
        </>
       }
        </>)
