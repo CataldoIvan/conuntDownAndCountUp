@@ -5,9 +5,9 @@ import CountUp from './componentes/CountUp/CountUp'
 
 
 const horaCapturada={
-  seconds:"10",
-  minutes:'1',
-  hours:'11'
+  seconds:"00",
+  minutes:'00',
+  hours:'00'
 }
 
 const App=()=> {
@@ -24,9 +24,14 @@ console.log(e.target.parentElement);
     <div className="App">
       {selector==0?
       (<>
-      <button onClick={()=>setSelector(2)}>CountDown</button>
+      <CountDown
+         timerHours={horaCapturada.hours}
+         timerMinutes={horaCapturada.minutes}
+         timerSeconds={horaCapturada.seconds}
+         /> 
+      {/* <button onClick={()=>setSelector(2)}>CountDown</button>
       <button onClick={()=>setSelector(1)}>CountUp</button>
-     
+      */}
       </>)
       :
       (

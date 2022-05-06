@@ -22,35 +22,50 @@ const [listPause, setListPause] = useState([]);
     .add(parseInt(remainigTime.minutes), "minute")
     .add(parseInt(remainigTime.hours), "hour");
 
-  const handleStart = (e) => {
 
+  const handleChange=(e)=>{
+    
+
+     if(e.target.value.length>2){
+      e.target.value=e.target.value.slice(-2)
+      setError(["no es un horario valido"])
+
+    } else{
+      setError([])
+      setRemainigTime({...remainigTime,
+        ...remainigTime[e.target.id]=e.target.value})
+    }
+    
+  }
+  const handleStart = (e) => {
+    /* VALIDACION DE HORA
     console.log(e.target.parentNode.hours)
     console.log(e.target.parentNode.minutes)
-    console.log(e.target.parentNode.seconds)
+    console.log(e.target.parentNode.seconds) 
     if(e.target.parentNode.hours<0 || e.target.parentNode.hours>24){
-      setError(...error.push("no puede ser mayor a 24 hs"))
+      setError(...error.push("no es un horario valido"))
       console.log(error);
-    }
+    }*/
 
     setStatus(1)
     setStart(true);
-    console.log(`me hizo click`);
+
   };
   const handlePause = () => {
     listPause.push(remainigTime);
-    console.log(listPause);
+  
     setStart(false)
     setStatus(2)
   };
 
   useEffect(() => {
-    console.log(remainigTime);
+  
 
     let intervalId;
     if (start) {
       intervalId = setInterval(() => {
         updateRemainigTime(dayjs(), intervalId);
-        console.log(remainigTime.seconds);
+   
       }, 1000);
       return () => clearInterval(intervalId);
     } else {
@@ -69,7 +84,7 @@ const [listPause, setListPause] = useState([]);
       let actMinutes = Math.floor((distance / 60) % 60).toString();
       let actSHours = Math.floor((distance / 3600) % 24).toString();
       //let actSHours=distance.diff(tiempoActual,"hour")
-      console.log(actSegundos);
+    
       setRemainigTime({
         seconds: actSegundos,
         minutes: actMinutes,
@@ -115,17 +130,23 @@ const [listPause, setListPause] = useState([]);
               
             <div className="col-4">
               <label className="visually-hidden" for={remainigTime.hours}>Name</label>
-              <input type="number" min="0"  max="24" className="form-control" id="hours" defaultValue={remainigTime.hours} placeholder="Hora"/>
+              <input type="number" minlength="0"  maxlength="2" className="form-control" id="hours" defaultValue={remainigTime.hours} placeholder="Hora"  onChange={handleChange} />
             </div>
             <div className="col-4">
               <label className="visually-hidden" for={remainigTime.minutes}>Name</label>
-              <input type="number" min="0"  max="60" className="form-control" id="minutes" defaultValue={remainigTime.minutes} placeholder="Minuto"/>
+              <input type="number" minlength="0"  maxlength="60" className="form-control" id="minutes" defaultValue={remainigTime.minutes} placeholder="Minuto"  onChange={handleChange}/>
             </div>
             <div className="col-4">
               <label className="visually-hidden" for={remainigTime.seconds}>Name</label>
-              <input type="number"  min="0"  max="60" className="form-control" id="seconds" defaultValue={remainigTime.seconds} placeholder="Segundo"/>
+              <input type="number" minlength="0"  maxlength="60" className="form-control" id="seconds" defaultValue={remainigTime.seconds} placeholder="Segundo"  onChange={handleChange}/>
             </div>
-            <button  style={{ color: color }} onClick={handleStart}>Empezar</button>
+            <div>
+              {error?error.map((err)=>
+                  <li style={{color:"red"}}>{err}</li>
+                )
+              :null}
+           </div>
+            <button  style={{ color: color, marginTop:12}} {...error.length===0?`disabled`:`disabled`} onClick={handleStart}>Empezar</button>
           </form>
           
           
@@ -176,18 +197,13 @@ const [listPause, setListPause] = useState([]);
         </div>
 
       </div>
-      <div>
-        {error?error.map((err)=>
-          <li>{err}</li>
-        )
-      :null}
-      </div>
+      
 
       <div>
         {listPause? listPause.map((obj) => (
               <ul className="list-group">
                 <li className="list-group-item neonLi" style={{ color: color }}>
-                  Pausado: {("0" + remainigTime.hours).slice(-2) + ":" + ("0" + remainigTime.minutes).slice(-2) + ":" + ("0" + remainigTime.seconds).slice(-2)}
+                  Pausado: {("0" + obj.hours).slice(-2) + ":" + ("0" + obj.minutes).slice(-2) + ":" + ("0" + obj.seconds).slice(-2)}
                 </li>
               </ul>
             ))
